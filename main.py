@@ -122,8 +122,10 @@ def check_winner(winner: Player, board: Board):
 
     if not empty_fields and winner == None:
         return "Tie!"
-    else:
+    elif winner != None:
         return f"Winner -> {winner}!"
+    else:
+        return None
 
 
 def main():
@@ -141,15 +143,19 @@ def main():
     while True:
         winner = get_winner(first_player, second_player)
 
-        if winner == None:
+        if check_winner(winner, board) == None:
             x1, y1 = input_cords(board)
             board.move(first_player, x1, y1)
             board.show()
+            winner = get_winner(first_player, second_player)
+
+            if check_winner(winner, board) != None:
+                print(check_winner(winner, board))
+                break
 
             x2, y2 = input_cords(board)
             board.move(second_player, x2, y2)
             board.show()
-
             winner = get_winner(first_player, second_player)
 
         else:
